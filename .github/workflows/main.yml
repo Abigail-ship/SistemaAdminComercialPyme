@@ -1,0 +1,35 @@
+name: Deploy Angular Frontend to AWS S3
+
+on:
+  push:
+    branches:
+      - main   # o 'master' según tu repositorio
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'   # Angular usa Node 18 o superior normalmente
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular project
+        run: npm run build --if-present -- --configuration=production
+
+      - name: Deploy to S3
+        uses: aws-actions/s3-sync@v2
+        with:
+          bucket: dev-admin-artesanal
+          region: us-east-2
+          source-dir: dist/browser  # ⚠️ ajusta si el nombre difiere
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
