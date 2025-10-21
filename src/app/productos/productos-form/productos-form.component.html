@@ -1,0 +1,65 @@
+<div class="container">
+  <h2>{{ id ? 'Editar Producto' : 'Nuevo Producto' }}</h2>
+  <form #productoForm="ngForm" (ngSubmit)="save(productoForm)">
+
+    <mat-form-field class="full-width">
+      <mat-label>Código</mat-label>
+      <input matInput [(ngModel)]="producto.codigo" name="codigo" required #codigoCtrl="ngModel">
+      <mat-error *ngIf="codigoCtrl.invalid && codigoCtrl.touched">El nombre es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Nombre del producto</mat-label>
+      <input matInput [(ngModel)]="producto.nombre" name="nombre" required #nombreCtrl="ngModel">
+      <mat-error *ngIf="nombreCtrl.invalid && nombreCtrl.touched">El nombre es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput [(ngModel)]="producto.descripcion" name="descripcion" required #descripcionCtrl="ngModel"></textarea>
+      <mat-error *ngIf="descripcionCtrl.invalid && descripcionCtrl.touched">La descripción es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Categoría</mat-label>
+      <mat-select [(ngModel)]="producto.categoriaId" name="categoriaId" required #categoriaCtrl="ngModel">
+        <mat-option *ngFor="let c of categorias" [value]="c.categoriaId">
+          {{ c.nombre }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="categoriaCtrl.invalid && categoriaCtrl.touched">La categoría es requerida</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Costo</mat-label>
+      <input matInput type="number" [(ngModel)]="producto.costo" name="costo" required #costoCtrl="ngModel">
+      <mat-error *ngIf="costoCtrl.invalid && costoCtrl.touched">El costo es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Precio de venta</mat-label>
+      <input matInput type="number" [(ngModel)]="producto.precioVenta" name="precioVenta" required #precioCtrl="ngModel">
+      <mat-error *ngIf="precioCtrl.invalid && precioCtrl.touched">El precio de venta es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Stock actual</mat-label>
+      <input matInput type="number" [(ngModel)]="producto.stock" name="stock" required #stockCtrl="ngModel">
+      <mat-error *ngIf="stockCtrl.invalid && stockCtrl.touched">El stock es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Stock mínimo</mat-label>
+      <input matInput type="number" [(ngModel)]="producto.stockMinimo" name="stockMinimo" required #stockminimoCtrl="ngModel">
+      <mat-error *ngIf="stockminimoCtrl.invalid && stockminimoCtrl.touched">El stock minimo es requerido</mat-error>
+    </mat-form-field>
+
+    <input type="file" (change)="onFileSelected($event)">
+    <div *ngIf="previewUrl">
+      <img [src]="previewUrl" alt="Vista previa" width="150">
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+    <button mat-button routerLink="/productos">Cancelar</button>
+  </form>
+</div>

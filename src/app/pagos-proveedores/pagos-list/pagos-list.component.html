@@ -1,0 +1,41 @@
+<mat-card>
+  <mat-card-title>Compras Pendientes</mat-card-title>
+
+  <table mat-table [dataSource]="compras" class="mat-elevation-z8 w-full">
+    <ng-container matColumnDef="compraId">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let c">{{ c.compraId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="proveedor">
+      <th mat-header-cell *matHeaderCellDef>Proveedor</th>
+      <td mat-cell *matCellDef="let c">{{ c.proveedor.nombre }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>Total</th>
+      <td mat-cell *matCellDef="let c">{{ c.total | currency:'MXN' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="saldoPendiente">
+      <th mat-header-cell *matHeaderCellDef>Saldo Pendiente</th>
+      <td mat-cell *matCellDef="let c">{{ (c.total - (c.totalPagado || 0)) | currency:'MXN' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let c">
+        <button mat-raised-button color="primary" (click)="seleccionarCompra(c)">Pagar</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['compraId','proveedor','total','saldoPendiente','acciones']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['compraId','proveedor','total','saldoPendiente','acciones'];"></tr>
+  </table>
+</mat-card>
+
+<!-- Mostrar el formulario de pago solo si hay compra seleccionada -->
+<app-pagos-form *ngIf="selectedCompra" 
+                [compra]="selectedCompra" 
+                (pagoCompletado)="pagoExitoso()">
+</app-pagos-form>

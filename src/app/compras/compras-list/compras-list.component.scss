@@ -1,0 +1,161 @@
+/* === Tarjeta principal === */
+mat-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background-color: #fff;
+}
+
+/* === Encabezado con título y botón de reporte === */
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+mat-card-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* === Botones generales === */
+button[mat-raised-button] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Botones con colores vivos según función */
+button[color="primary"] {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+button[color="accent"] {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+button[color="warn"] {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+/* === Barra de búsqueda con botón al lado derecho === */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.search-input-container {
+  flex: 1;
+  display: flex;
+}
+
+.search-input-container mat-form-field {
+  flex: 1;
+}
+
+.search-btn {
+  white-space: nowrap;
+}
+
+/* === Tabla de compras === */
+table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  background-color: #f3f3f3;
+  color: #333;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.mat-cell {
+  padding: 0.75rem 1rem;
+  word-break: break-word;
+}
+
+/* Estados de compras con colores vivos */
+span.bg-blue-500 {
+  background-color: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+span.bg-yellow-500 {
+  background-color: #fbc02d;
+  color: #000;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+span.bg-red-500 {
+  background-color: #d32f2f;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* Mensaje de tabla vacía */
+mat-card p {
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+}
+
+/* === Responsivo === */
+@media (max-width: 1024px) {
+  .flex {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 640px) {
+  mat-card-title {
+    font-size: 1.5rem;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+}

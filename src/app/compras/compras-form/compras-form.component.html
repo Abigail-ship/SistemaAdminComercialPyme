@@ -1,0 +1,111 @@
+<mat-card>
+  <mat-card-title>{{ compraId ? 'Editar Compra' : 'Nueva Compra' }}</mat-card-title>
+  <form [formGroup]="compraForm" (ngSubmit)="guardar()">
+
+    <!-- PROVEEDOR -->
+    <mat-form-field appearance="fill" class="w-full mb-3">
+      <mat-label>Proveedor</mat-label>
+      <mat-select formControlName="proveedorId" required [compareWith]="compararProveedores">
+        <mat-option *ngFor="let prov of proveedores" [value]="prov.proveedorId">
+          {{ prov.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- FECHA -->
+    <mat-form-field appearance="fill" class="w-full mb-3">
+      <mat-label>Fecha</mat-label>
+      <input matInput formControlName="fecha" [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- DETALLE DE COMPRA -->
+    <h3>Detalle de Compra</h3>
+    <div formArrayName="detalleCompras">
+      <div *ngFor="let detalle of detalleCompras.controls; let i = index" [formGroupName]="i" class="detalle-producto mb-4 p-3 border rounded">
+
+        <!-- Producto -->
+        <mat-form-field appearance="fill" class="w-full mb-2">
+          <mat-label>Producto</mat-label>
+          <mat-select formControlName="productoId" required>
+            <mat-option *ngFor="let prod of productos" [value]="prod.productoId">
+              {{ prod.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Cantidad -->
+        <mat-form-field appearance="fill" class="w-full mb-2">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" formControlName="cantidad" (input)="calcularSubtotal(i)">
+        </mat-form-field>
+
+        <!-- Precio Unitario -->
+        <mat-form-field appearance="fill" class="w-full mb-2">
+          <mat-label>Precio Unitario</mat-label>
+          <input matInput type="number" formControlName="precioUnitario" (input)="calcularSubtotal(i)">
+        </mat-form-field>
+
+        <!-- Subtotal -->
+        <mat-form-field appearance="fill" class="w-full mb-2">
+          <mat-label>Subtotal</mat-label>
+          <input matInput formControlName="subtotal" readonly>
+        </mat-form-field>
+
+        <!-- Botón eliminar producto -->
+        <button mat-icon-button color="warn" type="button" (click)="eliminarDetalle(i)">
+          <mat-icon>delete</mat-icon> Eliminar
+        </button>
+      </div>
+
+      <!-- Botón agregar producto -->
+      <button mat-stroked-button color="accent" type="button" (click)="agregarDetalle()">
+        + Agregar Producto
+      </button>
+    </div>
+
+    <!-- Total -->
+    <div class="total mt-3">
+      <h3>Total: {{ total | currency:'MXN' }}</h3>
+    </div>
+
+    <!-- MÉTODO DE PAGO -->
+    <mat-form-field appearance="fill" class="w-full mt-3">
+      <mat-label>Método de Pago</mat-label>
+      <mat-select formControlName="metodoPagoId">
+        <mat-option *ngFor="let metodo of metodosPago" [value]="metodo.id">
+          {{ metodo.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- FORMULARIO DE TARJETA (solo si es tarjeta) -->
+    <div *ngIf="mostrarTarjeta" class="mt-3 p-3 border rounded">
+      <h3>Información de la Tarjeta</h3>
+      <p>Ingrese los datos de su tarjeta:</p>
+      <div id="card-element" class="p-2 border rounded mb-2"></div>
+      <div id="card-errors" class="text-red-500 mb-2"></div>
+    </div>
+        <!-- SALDO PENDIENTE (solo si hay compra editando) -->
+    <div *ngIf="compraId && compraForm.value.totalPagado !== undefined" class="saldo-pendiente mt-2 p-2 border rounded bg-yellow-50">
+      <h4>Saldo Pendiente: {{ (total - compraForm.value.totalPagado) | currency:'MXN' }}</h4>
+      <button mat-raised-button color="primary" type="button"
+              *ngIf="(total - compraForm.value.totalPagado) > 0"
+              (click)="pagarSaldoPendiente()"
+              [disabled]="pagoProcesando">
+        {{ pagoProcesando ? 'Procesando Pago...' : 'Pagar Saldo Pendiente' }}
+      </button>
+    </div>
+
+    <!-- BOTONES DE ACCIÓN -->
+    <div class="actions mt-3 flex gap-2">
+      <button mat-raised-button color="primary" type="submit" [disabled]="pagoProcesando">
+        {{ pagoProcesando ? 'Procesando...' : (compraId ? 'Actualizar Compra' : 'Guardar Compra') }}
+      </button>
+      <button mat-stroked-button color="warn" routerLink="/compras" [disabled]="pagoProcesando">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>

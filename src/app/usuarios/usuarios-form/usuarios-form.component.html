@@ -1,0 +1,68 @@
+<div class="form-container">
+  <h2 class="form-title">{{ isEdit ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
+
+  <!-- Botón Volver a la lista -->
+  <div class="back-btn-container">
+    <button mat-stroked-button color="primary" routerLink="/usuarios">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a la lista de usuarios
+    </button>
+  </div>
+
+  <form #usuarioForm="ngForm" (ngSubmit)="saveUsuario()" class="usuario-form" novalidate>
+
+    <!-- Nombre Usuario -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre Usuario</mat-label>
+      <input matInput [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" required #nombreCtrl="ngModel">
+      <mat-error *ngIf="nombreCtrl.invalid && nombreCtrl.touched">
+        El nombre de usuario es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Contraseña -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" [(ngModel)]="usuario.passwordHash" name="passwordHash" [required]="!isEdit" #passCtrl="ngModel">
+      <mat-error *ngIf="passCtrl.invalid && passCtrl.touched">
+        La contraseña es obligatoria
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Nombre Completo -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre Completo</mat-label>
+      <input matInput [(ngModel)]="usuario.nombreCompleto" name="nombreCompleto" required #nombreCompCtrl="ngModel">
+      <mat-error *ngIf="nombreCompCtrl.invalid && nombreCompCtrl.touched">
+        El nombre completo es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Rol -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Rol</mat-label>
+      <mat-select [(ngModel)]="usuario.rolId" name="rolId" required #rolCtrl="ngModel">
+        <mat-option *ngFor="let rol of roles" [value]="rol.rolId">{{ rol.nombre }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="rolCtrl.invalid && rolCtrl.touched">
+        Debes seleccionar un rol
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Activo -->
+    <mat-checkbox [(ngModel)]="usuario.activo" name="activo" class="activo-checkbox">
+      Activo
+    </mat-checkbox>
+
+    <!-- Botones principales -->
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit" [disabled]="usuarioForm.invalid">
+        {{ isEdit ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button mat-raised-button color="warn" routerLink="/usuarios" type="button">
+        Cancelar
+      </button>
+    </div>
+
+  </form>
+</div>

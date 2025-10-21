@@ -1,0 +1,134 @@
+/* === Contenedor principal === */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 1rem;
+}
+
+/* === Tarjetas de detalle y productos === */
+mat-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+/* Títulos de las tarjetas */
+mat-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1976d2; /* azul vivo */
+  margin-bottom: 1rem;
+}
+
+/* === Filas de detalle (label + valor) === */
+.detail-row {
+  display: flex;
+  flex-wrap: wrap;       /* permite que el valor baje si la pantalla es pequeña */
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* Label (strong) */
+.detail-row strong {
+  color: #1976d2;        /* azul vivo */
+  font-weight: 600;
+  min-width: 140px;       /* asegura espacio fijo para label */
+}
+
+/* Valor */
+.detail-row span {
+  color: #333;           /* color oscuro para ser visible */
+  font-weight: 400;
+}
+
+/* === Tabla de productos === */
+table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  background-color: #f3f3f3;
+  color: #333;
+}
+
+.mat-cell {
+  padding: 0.75rem 1rem;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* === Botones === */
+button[mat-raised-button] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+}
+
+button[color="primary"] {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+button[color="warn"] {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+/* Contenedor de botones al final */
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* === Responsivo === */
+@media (max-width: 1024px) {
+  .detail-row {
+    flex-direction: column;  /* apila label y valor en pantallas medianas */
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .detail-row strong {
+    min-width: auto;
+  }
+
+  .d-flex {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button[mat-raised-button] {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  mat-card-title {
+    font-size: 1.3rem;
+  }
+
+  .detail-row {
+    font-size: 0.95rem;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+}

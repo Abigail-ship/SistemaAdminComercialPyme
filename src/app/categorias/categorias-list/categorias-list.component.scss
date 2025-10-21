@@ -1,0 +1,130 @@
+/* Contenedor principal */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    button[mat-raised-button] {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #79dcc6, #97ecc1);
+      color: #2c3e50;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .categories-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+
+    .category-card {
+      padding: 15px 20px;
+      border-radius: 15px;
+      background: #fffbe6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.2s, box-shadow 0.2s;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .category-name {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #34495e;
+        }
+
+        .actions {
+          display: flex;
+          gap: 8px;
+
+          button {
+            transition: transform 0.2s;
+
+            &:hover {
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      button[mat-raised-button] {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+      }
+    }
+
+    .categories-list {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+    }
+
+    .category-card {
+      padding: 12px 15px;
+
+      .card-content {
+        .category-name {
+          font-size: 1rem;
+        }
+
+        .actions {
+          button {
+            mat-icon {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

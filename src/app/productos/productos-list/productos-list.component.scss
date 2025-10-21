@@ -1,0 +1,122 @@
+.productos-card {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff8f0; /* Fondo cálido artesanal */
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+
+  h2 {
+    text-align: center;
+    color: #d84315; /* Rojo cálido */
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .search-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    mat-form-field {
+      flex: 1;
+      background: #fff3e0;
+      border-radius: 8px;
+      padding: 0.2rem;
+
+      mat-label {
+        color: #6d4c41;
+        font-weight: 500;
+      }
+
+      input {
+        color: #3e2723;
+        font-size: 1rem;
+      }
+    }
+
+    a {
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* centra el contenido */
+    gap: 0.5rem;
+    background-color: #ff7043;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem; /* aumenta el área */
+    min-width: 180px; /* ancho mínimo más grande */
+
+    &:hover {
+      background-color: #f4511e;
+    }
+
+    mat-icon {
+      margin-right: 0.5rem;
+    }
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+
+      th, td {
+        text-align: left;
+        padding: 12px 15px;
+      }
+
+      th {
+        background-color: #ffccbc;
+        color: #4e342e;
+        font-weight: 600;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      tr.data-row {
+        background-color: #fff3e0;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+        &:hover {
+          background-color: #ffe0b2;
+        }
+
+        td.stock-bajo {
+          color: #d84315; /* Rojo para stock bajo */
+          font-weight: bold;
+        }
+      }
+
+      td button {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .search-container {
+      flex-direction: column;
+
+      mat-form-field, a {
+        width: 100%;
+      }
+    }
+  }
+}

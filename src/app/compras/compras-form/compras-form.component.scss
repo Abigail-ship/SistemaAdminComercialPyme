@@ -1,0 +1,151 @@
+/* === Tarjeta principal === */
+mat-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* === Título principal === */
+mat-card-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* === Formularios y campos === */
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field input,
+mat-form-field mat-select {
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+/* === Detalle de compra === */
+.detalle-producto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fefefe;
+  align-items: flex-end;
+}
+
+/* Cada campo en detalle ocupa un ancho proporcional según la pantalla */
+.detalle-producto mat-form-field {
+  flex: 1 1 150px;
+  min-width: 120px;
+}
+
+/* Botón eliminar producto */
+.detalle-producto button {
+  align-self: flex-end;
+  margin-top: 0.25rem;
+}
+
+/* Botón agregar producto */
+button[mat-stroked-button] {
+  margin-top: 0.5rem;
+  color: #ff9800;
+  border-color: #ff9800;
+}
+
+/* Total de compra */
+.total h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-top: 1rem;
+}
+
+/* Método de pago y tarjeta */
+.mat-form-field {
+  margin-top: 1rem;
+}
+
+#card-element {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+#card-errors {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+/* Saldo pendiente */
+.saldo-pendiente {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #856404;
+}
+
+/* Botones de acción al final del formulario */
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+/* Botones primarios y de alerta */
+button[color="primary"] {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+button[color="accent"] {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+button[color="warn"] {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+/* === Responsivo === */
+@media (max-width: 1024px) {
+  .detalle-producto {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .detalle-producto mat-form-field {
+    flex: 1 1 100%;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .saldo-pendiente {
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  mat-card-title {
+    font-size: 1.5rem;
+  }
+
+  .total h3 {
+    font-size: 1.1rem;
+  }
+
+  mat-form-field input,
+  mat-form-field mat-select {
+    font-size: 0.95rem;
+  }
+}

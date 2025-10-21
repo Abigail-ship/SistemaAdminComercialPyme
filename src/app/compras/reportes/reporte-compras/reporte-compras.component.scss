@@ -1,0 +1,167 @@
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* === Título === */
+h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 1.5rem;
+}
+
+/* === Filas de filtros === */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.col {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* Mat Form Fields */
+mat-form-field {
+  width: 100%;
+}
+
+/* Botones generales */
+button[mat-raised-button] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[color="primary"] {
+  background-color: #1976d2;
+  color: #fff;
+
+  &:hover {
+    background-color: #1565c0;
+  }
+}
+
+button[color="warn"] {
+  background-color: #d32f2f;
+  color: #fff;
+
+  &:hover {
+    background-color: #b71c1c;
+  }
+}
+
+/* Botón Exportar PDF y Regresar */
+button.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.btn-back {
+  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: #ff9800;
+  color: #fff;
+
+  &:hover {
+    background-color: #fb8c00;
+  }
+}
+
+/* Totales */
+.mb-3 {
+  font-size: 1rem;
+  color: #333;
+
+  strong {
+    color: #1976d2;
+    margin-right: 0.3rem;
+  }
+
+  span {
+    color: #333; /* asegura que los valores sean visibles */
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }
+}
+
+/* Tabla de reporte */
+table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 1rem;
+
+  .mat-header-cell {
+    font-weight: bold;
+    background-color: #f3f3f3;
+    color: #1976d2;
+    text-align: left;
+    padding: 0.75rem 1rem;
+  }
+
+  .mat-cell {
+    padding: 0.75rem 1rem;
+    color: #333;
+  }
+
+  .mat-row:nth-child(even) {
+    background-color: #fafafa;
+  }
+}
+
+/* Mensaje si no hay datos */
+mat-card {
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* === Responsivo === */
+@media (max-width: 1024px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col {
+    min-width: 100%;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  table {
+    font-size: 0.85rem;
+  }
+
+  button[mat-raised-button] {
+    width: 100%;
+    justify-content: center;
+  }
+}

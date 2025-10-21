@@ -1,0 +1,107 @@
+<mat-card class="p-4">
+  <!-- Encabezado con título y botón de reporte -->
+  <div class="flex justify-between items-center mb-4">
+  <mat-card-title>Listado de Compras</mat-card-title>
+
+  <!-- Botón para Reporte de Compras -->
+  <button mat-raised-button color="primary" (click)="goToReporte()">
+    <mat-icon>bar_chart</mat-icon>
+    Reporte de Compras
+  </button>
+</div>
+
+  <!-- 📌 Barra de búsqueda -->
+ <div class="flex items-center gap-3 mb-4">
+  <div class="search-input-container">
+    <mat-form-field appearance="fill" class="flex-1">
+      <mat-label>Buscar por proveedor o fecha</mat-label>
+      <input matInput [(ngModel)]="searchTerm" />
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" class="search-btn" (click)="search()">
+    <mat-icon>search</mat-icon>
+    Buscar
+  </button>
+</div>
+
+  <!-- 📌 Botón nueva compra -->
+  <div class="mb-4">
+    <button mat-raised-button color="accent" (click)="newCompra()">
+      <mat-icon>add</mat-icon>
+      Nueva Compra
+    </button>
+  </div>
+
+  <!-- 📌 Tabla de compras -->
+  <table mat-table [dataSource]="compras" class="mat-elevation-z8 w-full">
+
+    <!-- ID -->
+    <ng-container matColumnDef="compraId">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let compra">{{ compra.compraId }}</td>
+    </ng-container>
+
+    <!-- Proveedor -->
+    <ng-container matColumnDef="proveedor">
+      <th mat-header-cell *matHeaderCellDef>Proveedor</th>
+      <td mat-cell *matCellDef="let compra">{{ compra.proveedor?.nombre }}</td>
+    </ng-container>
+
+    <!-- Fecha -->
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+      <td mat-cell *matCellDef="let compra">
+        {{ compra.fecha | date: 'dd/MM/yyyy' }}
+      </td>
+    </ng-container>
+
+    <!-- Total -->
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>Total</th>
+      <td mat-cell *matCellDef="let compra">
+        {{ compra.total | currency:'MXN':'symbol':'1.2-2' }}
+      </td>
+    </ng-container>
+
+    <!-- Estado -->
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let compra">
+        <span *ngIf="compra.estado === 'Pagada'" class="px-2 py-1 rounded bg-blue-500 text-white">
+          Pagada
+        </span>
+        <span *ngIf="compra.estado === 'Pendiente'" class="px-2 py-1 rounded bg-yellow-500 text-black">
+          Pendiente
+        </span>
+        <span *ngIf="compra.estado === 'Cancelada'" class="px-2 py-1 rounded bg-red-500 text-white">
+          Cancelada
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Acciones -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let compra">
+        <button mat-icon-button color="primary" (click)="viewCompra(compra)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="editCompra(compra)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="userRole === 'Administrador'" mat-icon-button color="warn" (click)="deleteCompra(compra)">
+    <mat-icon>delete</mat-icon>
+  </button>
+      </td>
+    </ng-container>
+
+    <!-- Renderizado de la tabla -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- 📌 Mensaje si no hay resultados -->
+  <mat-card *ngIf="!compras || compras.length === 0" class="mt-4 p-4 text-center">
+    <p>No se encontraron compras registradas.</p>
+  </mat-card>
+</mat-card>

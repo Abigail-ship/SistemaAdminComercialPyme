@@ -1,0 +1,13 @@
+<mat-card class="mt-4">
+  <mat-card-title>Pago de Compra #{{ compra.compraId }}</mat-card-title>
+
+  <p><strong>Proveedor:</strong> {{ compra.proveedor.nombre }}</p>
+  <p><strong>Total:</strong> {{ compra.total | currency:'MXN' }}</p>
+  <p><strong>Saldo pendiente:</strong> {{ (compra.total - (compra.totalPagado || 0)) | currency:'MXN' }}</p>
+
+  <div id="card-element" class="my-4"></div>
+
+  <button mat-raised-button color="primary" (click)="pagar()">Pagar</button>
+
+  <p *ngIf="mensaje" class="mt-2">{{ mensaje }}</p>
+</mat-card>

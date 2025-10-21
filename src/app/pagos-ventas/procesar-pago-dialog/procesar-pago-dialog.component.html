@@ -1,0 +1,24 @@
+<h2>Procesar Pago</h2>
+<p><strong>Saldo pendiente:</strong> {{venta.total - (venta.totalPagado || 0) | currency}}</p>
+
+<mat-form-field appearance="fill">
+  <mat-label>Método de Pago</mat-label>
+  <mat-select [(value)]="metodoSeleccionado">
+    <mat-option *ngFor="let m of metodosPago" [value]="m.metodoPagoId">
+      {{m.nombre}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div *ngIf="esTransferencia()">
+  <mat-form-field appearance="fill">
+    <mat-label>Referencia/Número de Operación</mat-label>
+    <input matInput [(ngModel)]="referencia">
+  </mat-form-field>
+</div>
+
+<div *ngIf="esTarjeta()">
+  <p>Información de la tarjeta (Stripe.js aquí)</p>
+</div>
+
+<button mat-raised-button color="primary" (click)="procesarPago()">Procesar Pago</button>

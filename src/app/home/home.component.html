@@ -1,0 +1,70 @@
+<div class="main-content">
+  <h1 class="home-title">🌺 Bienvenido(a) a Raíces con Amor🌺</h1>
+  <p class="home-subtitle">Gestiona de forma fácil tus ventas, compras y productos</p>
+
+  <div class="cards-container">
+     <!-- Usuarios y Roles (solo Administrador) -->
+  <ng-container *ngIf="userRole === 'Administrador'">
+    <mat-card class="card card-usuarios" (click)="goToUsuarios()">
+      <mat-icon class="card-icon">person</mat-icon>
+      <h3>Usuarios</h3>
+      <p>{{usuariosCount}} registrados</p>
+    </mat-card>
+
+    <mat-card class="card card-roles" (click)="goToRoles()">
+      <mat-icon class="card-icon">security</mat-icon>
+      <h3>Roles</h3>
+      <p>{{rolesCount}} definidos</p>
+    </mat-card>
+  </ng-container>
+
+    <!-- Categorías -->
+    <mat-card class="card card-categorias" (click)="goToCategorias()">
+      <mat-icon class="card-icon">category</mat-icon>
+      <h3>Categorías</h3>
+      <p>Organiza tus artesanías</p>
+    </mat-card>
+
+    <!-- Productos -->
+    <mat-card class="card card-productos" (click)="goToProductos()">
+      <mat-icon class="card-icon">inventory_2</mat-icon>
+      <h3>Productos</h3>
+      <p>Gestión de inventario</p>
+    </mat-card>
+
+    <!-- Clientes -->
+    <mat-card class="card card-clientes" (click)="goToClientes()">
+      <mat-icon class="card-icon">people</mat-icon>
+      <h3>Clientes</h3>
+      <p>Tu cartera de clientes</p>
+    </mat-card>
+
+    <!-- Proveedores -->
+    <mat-card class="card card-proveedores" (click)="goToProveedores()">
+      <mat-icon class="card-icon">local_shipping</mat-icon>
+      <h3>Proveedores</h3>
+      <p>Relaciones de compra</p>
+    </mat-card>
+
+    <!-- Compras -->
+    <mat-card class="card card-compras" (click)="goToCompras()">
+      <mat-icon class="card-icon">shopping_bag</mat-icon>
+      <h3>Compras</h3>
+      <p>Control de adquisiciones</p>
+    </mat-card>
+
+    <!-- Pagos -->
+    <mat-card class="card card-pagos" (click)="goToPagos()">
+      <mat-icon class="card-icon">payment</mat-icon>
+      <h3>Pagos</h3>
+      <p>Registros de pagos</p>
+    </mat-card>
+
+    <!-- Ventas -->
+    <mat-card class="card card-ventas" (click)="goToVentas()">
+      <mat-icon class="card-icon">shopping_cart</mat-icon>
+      <h3>Ventas</h3>
+      <p>Control de ventas</p>
+    </mat-card>
+  </div>
+</div>

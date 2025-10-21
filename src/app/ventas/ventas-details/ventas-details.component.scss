@@ -1,0 +1,115 @@
+mat-card {
+  background: #fff3e0; // tono suave tipo artesanal
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+  h2 {
+    color: #e65100; // título en naranja oscuro
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  h3 {
+    color: #bf360c; // subtítulos de sección
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 16px;
+    color: #3e2723;
+    margin: 5px 0;
+
+    strong {
+      color: #bf360c;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+
+    th {
+      background-color: #ffcc80; // encabezado
+      color: #3e2723;
+      font-weight: 600;
+      padding: 10px;
+      text-align: left;
+    }
+
+    td {
+      background-color: #fff8e1; // filas tabla
+      color: #3e2723;
+      padding: 10px;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #ffe0b2; // filas alternas
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+      color: #3e2723;
+
+      &.mat-stroked-button {
+        border-color: #bf360c;
+        color: #bf360c;
+
+        mat-icon {
+          font-size: 20px;
+        }
+
+        &:hover {
+          background-color: #ffe0b2;
+        }
+      }
+
+      &:not(.mat-stroked-button) {
+        background-color: #ffcc80;
+        &:hover {
+          background-color: #ffb74d;
+        }
+      }
+    }
+  }
+}
+
+// Responsividad
+@media (max-width: 768px) {
+  mat-card {
+    padding: 15px;
+
+    table {
+      font-size: 14px;
+
+      th, td {
+        padding: 8px;
+      }
+    }
+
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

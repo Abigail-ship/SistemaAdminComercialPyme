@@ -1,0 +1,46 @@
+<mat-card class="clientes-form-card">
+  <h2>{{ isEditMode ? 'Editar Cliente' : 'Nuevo Cliente' }}</h2>
+
+  <form [formGroup]="clienteForm" (ngSubmit)="saveCliente()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nombres</mat-label>
+      <input matInput formControlName="nombres" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Apellidos</mat-label>
+      <input matInput formControlName="apellidos" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre Comercial</mat-label>
+      <input matInput formControlName="nombreComercial" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="direccion" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo Cliente</mat-label>
+      <input matInput formControlName="tipoCliente" required>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+    </button>
+    <a mat-button color="warn" routerLink="/clientes">Cancelar</a>
+  </form>
+</mat-card>

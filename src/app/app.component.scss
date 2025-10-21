@@ -1,0 +1,16 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+}
+
+app-sidebar {
+  width: 220px; /* Ajusta según el diseño */
+  background: #2c3e50;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}

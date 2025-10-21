@@ -1,0 +1,47 @@
+<mat-card class="proveedores-form-card">
+  <h2>{{ isEditMode ? 'Editar Proveedor' : 'Nuevo Proveedor' }}</h2>
+
+  <form [formGroup]="proveedorForm" (ngSubmit)="saveProveedor()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Contacto</mat-label>
+      <input matInput formControlName="contacto" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="direccion" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>RFC</mat-label>
+      <input matInput formControlName="rfc" required>
+    </mat-form-field>
+
+    <!-- Checkbox fuera de mat-form-field -->
+    <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+
+    <div class="form-buttons" style="margin-top: 16px;">
+      <button mat-raised-button color="primary" type="submit">
+        {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+      </button>
+      <a mat-button color="warn" routerLink="/proveedores">Cancelar</a>
+    </div>
+
+  </form>
+</mat-card>

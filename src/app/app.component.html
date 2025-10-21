@@ -1,0 +1,10 @@
+<ng-container *ngIf="isLoggedIn; else loginTemplate">
+  <app-sidebar>
+    <!-- Aquí se inyecta el contenido de cada ruta -->
+    <router-outlet></router-outlet>
+  </app-sidebar>
+</ng-container>
+
+<ng-template #loginTemplate>
+  <router-outlet></router-outlet>
+</ng-template>

@@ -1,0 +1,90 @@
+<div class="container mat-elevation-z2 p-3">
+   <!-- Botón de regresar -->
+  <div class="toolbar mb-3">
+    <button mat-stroked-button color="warn" [routerLink]="['/productos']">
+  <mat-icon>arrow_back</mat-icon>
+  Regresar a Productos
+</button>
+
+  </div>
+
+  <h2>Reporte de Productos Más Vendidos</h2>
+
+  <!-- Filtros -->
+  <div class="row mb-3">
+    <div class="col">
+      <mat-form-field class="w-100">
+        <mat-label>Tipo de reporte</mat-label>
+        <mat-select [(value)]="tipoReporte">
+          <mat-option value="mensual">Mensual</mat-option>
+          <mat-option value="semanal">Semanal</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field class="w-100">
+        <mat-label>Año</mat-label>
+        <input matInput type="number" [(ngModel)]="year">
+      </mat-form-field>
+    </div>
+
+    <div class="col" *ngIf="tipoReporte==='mensual'">
+      <mat-form-field class="w-100">
+        <mat-label>Mes</mat-label>
+        <input matInput type="number" [(ngModel)]="month" min="1" max="12">
+      </mat-form-field>
+    </div>
+
+    <div class="col" *ngIf="tipoReporte==='semanal'">
+      <mat-form-field class="w-100">
+        <mat-label>Semana</mat-label>
+        <input matInput type="number" [(ngModel)]="week" min="1" max="52">
+      </mat-form-field>
+    </div>
+
+    <div class="col d-flex align-items-end">
+      <button mat-raised-button color="primary" (click)="getReporte()">
+        <mat-icon>filter_alt</mat-icon> Filtrar
+      </button>
+    </div>
+  </div>
+
+  <!-- Exportar PDF -->
+  <button mat-raised-button color="primary" class="mb-3"
+          (click)="exportPDF()"
+          [disabled]="!reporte.Productos.length">
+    <mat-icon>picture_as_pdf</mat-icon> Exportar PDF
+  </button>
+
+  <!-- Tabla -->
+  <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0">
+
+    <ng-container matColumnDef="productoId">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let p">{{p.ProductoId}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let p">{{p.Nombre}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef>Cantidad Vendida</th>
+      <td mat-cell *matCellDef="let p">{{p.CantidadVendida}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>Total Generado</th>
+      <td mat-cell *matCellDef="let p">{{p.TotalGenerado | currency:'MXN'}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-card *ngIf="!reporte.Productos.length" class="mt-4 text-center p-3">
+    <p>No hay ventas registradas para este periodo.</p>
+  </mat-card>
+</div>

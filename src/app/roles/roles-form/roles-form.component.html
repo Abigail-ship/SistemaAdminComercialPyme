@@ -1,0 +1,32 @@
+<div class="form-container">
+  <mat-card class="rol-card">
+    <h2>{{ isEdit ? 'Editar Rol' : 'Nuevo Rol' }}</h2>
+
+    <form #rolForm="ngForm" (ngSubmit)="saveRol()" novalidate>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nombre del Rol</mat-label>
+        <input matInput
+               [(ngModel)]="rol.nombre"
+               name="nombre"
+               required
+               #nombreCtrl="ngModel">
+        <!-- Mensaje de error -->
+        <mat-error *ngIf="nombreCtrl.invalid && nombreCtrl.touched">
+          El nombre del rol es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <div class="buttons">
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="rolForm.invalid">
+          {{ isEdit ? 'Actualizar' : 'Crear' }}
+        </button>
+        <a mat-stroked-button color="warn" routerLink="/roles">Cancelar</a>
+      </div>
+
+    </form>
+  </mat-card>
+</div>

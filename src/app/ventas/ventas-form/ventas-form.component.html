@@ -1,0 +1,108 @@
+<mat-card>
+  <h2>{{ esEdicion ? 'Editar Venta' : 'Registrar Nueva Venta' }}</h2>
+
+  <form [formGroup]="ventaForm" (ngSubmit)="guardarVenta()">
+    
+    <!-- Cliente -->
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Cliente</mat-label>
+      <mat-select formControlName="ClienteId">
+        <mat-option *ngFor="let cliente of clientes || []" [value]="cliente.clienteId">
+          {{ cliente.nombres }} {{ cliente.apellidos }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Fecha -->
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="Fecha">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Detalle de Productos -->
+    <div formArrayName="detalleVentas">
+      <div *ngFor="let detalle of detalleVentas.controls; let i = index" [formGroupName]="i"
+           style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+        <mat-form-field appearance="fill" style="flex: 2;">
+          <mat-label>Producto</mat-label>
+          <mat-select formControlName="productoId" (selectionChange)="onProductoChange(i)">
+            <mat-option *ngFor="let prod of productos || []" [value]="prod.productoId">
+              {{ prod.nombre }} - Stock: {{ prod.stock }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" formControlName="cantidad" (input)="calcularSubtotal(i)">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Precio Unitario</mat-label>
+          <input matInput type="number" formControlName="precioUnitario" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Subtotal</mat-label>
+          <input matInput formControlName="subtotal" readonly>
+        </mat-form-field>
+
+        <button mat-icon-button color="warn" type="button" (click)="eliminarProducto(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <button mat-stroked-button color="accent" type="button" (click)="agregarProducto()">+ Agregar Producto</button>
+
+    <h3 style="margin-top: 15px;">Total: {{ calcularTotal() | currency }}</h3>
+
+    <!-- Método de pago para nueva venta -->
+    <div *ngIf="!esEdicion">
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Método de Pago</mat-label>
+        <mat-select formControlName="MetodoPagoId">
+          <mat-option [value]="1">Efectivo</mat-option>
+          <mat-option [value]="2">Tarjeta de Crédito</mat-option>
+          <mat-option [value]="3">Tarjeta de Débito</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Saldo pendiente en edición -->
+    <div *ngIf="esEdicion">
+      <ng-container *ngIf="calcularTotal() - (ventaForm.get('TotalPagado')?.value || 0) > 0; else noSaldo">
+        <p class="saldo-pendiente">
+      <strong>Saldo pendiente:</strong> 
+      {{ calcularTotal() - (ventaForm.get('TotalPagado')?.value || 0) | currency }}</p>
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Seleccionar método de pago para el saldo pendiente</mat-label>
+          <mat-select [(value)]="metodoSeleccionado">
+            <mat-option [value]="1">Efectivo</mat-option>
+            <mat-option [value]="2">Tarjeta de Crédito</mat-option>
+            <mat-option [value]="3">Tarjeta de Débito</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="button" (click)="pagarSaldo()">Pagar saldo pendiente</button>
+      </ng-container>
+      <ng-template #noSaldo>
+        <p style="color: #000; font-weight: 600;">✅ No hay saldo pendiente</p>
+      </ng-template>
+    </div>
+
+    <!-- Botones -->
+    <div style="margin-top: 20px; display: flex; gap: 10px;">
+      <button mat-raised-button color="primary" type="submit">{{ esEdicion ? 'Guardar Cambios' : 'Guardar Venta' }}</button>
+      <button mat-button type="button" (click)="cancelarFormulario()">Cancelar</button>
+    </div>
+
+    <!-- Esperando pago -->
+    <div *ngIf="pagoEnProceso" style="margin-top: 20px; display: flex; align-items: center; gap: 10px;">
+      <mat-progress-spinner mode="indeterminate" diameter="24" strokeWidth="3" color="warn"></mat-progress-spinner>
+      <span>Esperando que completes el pago en Stripe...</span>
+    </div>
+
+  </form>
+</mat-card>

@@ -1,0 +1,28 @@
+<div class="form-container">
+  <mat-card class="categoria-card">
+    <h2>{{ id ? 'Editar Categoría' : 'Nueva Categoría' }}</h2>
+
+    <form #categoriaForm="ngForm" (ngSubmit)="save()" novalidate>
+
+      <!-- Nombre de la categoría -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nombre de la Categoría</mat-label>
+        <input matInput [(ngModel)]="categoria.nombre" name="nombre" required #nombreCtrl="ngModel">
+        <mat-error *ngIf="nombreCtrl.invalid && nombreCtrl.touched">
+          El nombre de la categoría es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Botones -->
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="categoriaForm.invalid">
+          {{ id ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button mat-stroked-button color="warn" type="button" (click)="router.navigate(['/categorias'])">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+  </mat-card>
+</div>

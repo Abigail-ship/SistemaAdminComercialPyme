@@ -1,0 +1,164 @@
+/* === Contenedor principal === */
+mat-card {
+  background-color: #fff8f0; /* tono cálido y artesanal */
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+
+  /* Header */
+  mat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    mat-card-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #5e544c; /* color cálido y llamativo */
+    }
+
+    button[mat-raised-button] {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      background-color: #1976d2;
+      color: #fff;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #1565c0;
+      }
+    }
+  }
+
+  /* Card Actions */
+  mat-card-actions {
+    margin-bottom: 1rem;
+
+    button[mat-raised-button] {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      background-color: #ff9800;
+      color: #fff;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #fb8c00;
+      }
+    }
+  }
+
+  /* === Tabla de ventas estilizada === */
+  table {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    /* Encabezado */
+    .mat-header-cell {
+      font-weight: bold;
+      background: linear-gradient(90deg, #ffcc80, #ffa726); /* gradiente cálido */
+      color: #fff;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+    }
+
+    /* Celdas */
+    .mat-cell {
+      padding: 0.75rem 1rem;
+      color: #333;
+      background-color: #fff3e0;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Filas alternadas */
+    .mat-row:nth-child(even) .mat-cell {
+      background-color: #ffe0b2;
+    }
+
+    /* Hover */
+    .mat-row:hover .mat-cell {
+      background-color: #ffd699;
+    }
+
+    /* Botones dentro de la tabla */
+    button[mat-button] {
+      margin-right: 0.3rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+
+      &.mat-warn {
+        color: #d32f2f;
+
+        &:hover {
+          background-color: rgba(211, 47, 47, 0.1);
+        }
+      }
+
+      &.mat-accent {
+        color: #ff9800;
+
+        &:hover {
+          background-color: rgba(255, 152, 0, 0.1);
+        }
+      }
+
+      &:not(.mat-warn):not(.mat-accent) {
+        color: #1976d2;
+
+        &:hover {
+          background-color: rgba(25, 118, 210, 0.1);
+        }
+      }
+    }
+  }
+}
+
+/* === Responsivo === */
+@media (max-width: 1024px) {
+  mat-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    button[mat-raised-button] {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  mat-card-actions {
+    button[mat-raised-button] {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 640px) {
+  table {
+    font-size: 0.85rem;
+
+    button[mat-button] {
+      margin-bottom: 0.3rem;
+    }
+  }
+}

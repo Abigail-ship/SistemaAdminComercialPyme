@@ -1,0 +1,90 @@
+/* === Tarjetas resumen de totales === */
+/* === Título === */
+.titulo-reporte {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #222; /* más oscuro para que contraste */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* sombra ligera */
+}
+
+
+/* === Botón de regresar === */
+.btn-regresar {
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 0.5rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+.totales {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.resumen {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.resumen.disponible {
+  background-color: #388e3c; // Verde
+}
+
+.resumen.por-agotarse {
+  background-color: #fbc02d; // Amarillo
+  color: #000; // Texto negro para contraste
+}
+
+.resumen.agotado {
+  background-color: #d32f2f; // Rojo
+}
+
+/* === Filtro === */
+.filtro {
+  width: 250px;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+/* === Tabla de inventario === */
+table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  background-color: #eeeeee;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* === Colores para estados === */
+.text-success {
+  color: #388e3c;
+  font-weight: bold;
+}
+
+.text-warning {
+  color: #fbc02d;
+  font-weight: bold;
+}
+
+.text-danger {
+  color: #d32f2f;
+  font-weight: bold;
+}

@@ -1,0 +1,129 @@
+.proveedores-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #fff 70%, #d1fae5 100%); // verde suave artesanal
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #065f46; // verde oscuro para diferenciar
+    text-align: center;
+  }
+}
+
+/* 🔍 Barra de búsqueda */
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+
+  mat-form-field {
+    flex: 1;
+    min-width: 240px;
+  }
+
+  a {
+    border-radius: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+    mat-icon {
+      font-size: 20px;
+    }
+
+    &:hover {
+      background-color: #059669 !important; // verde más fuerte
+      color: white !important;
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* ⏳ Loader centrado */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+/* 📊 Tabla de proveedores */
+.table-container {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    th {
+      background: #d1fae5;
+      color: #064e3b;
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem;
+    }
+
+    td {
+      padding: 0.75rem;
+      color: #374151;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    tr:hover {
+      background-color: #f9fafb;
+    }
+
+    .mat-icon {
+      font-size: 20px;
+    }
+
+    /* Botones de acción */
+    td button,
+    td a {
+      margin-right: 0.5rem;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+/* 📌 Paginador */
+mat-paginator {
+  margin-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.75rem;
+}
+
+/* 📱 Responsividad */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+
+    a {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  table th,
+  table td {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}

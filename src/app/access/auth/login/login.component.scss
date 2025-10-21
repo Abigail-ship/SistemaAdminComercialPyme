@@ -1,0 +1,79 @@
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffcc66, #ff9966, #cc3300); // tonos cálidos mexicanos
+  background-size: 300% 300%;
+  animation: gradientBG 10s ease infinite;
+}
+
+.login-card {
+  width: 350px;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  background: #fff;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.login-title {
+  font-weight: bold;
+  color: #cc3300;
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.btn-ingresar {
+  width: 100%;
+  background: #ff6600; // naranja artesanal
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #cc3300; // rojo más fuerte
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.error-message {
+  margin-top: 15px;
+  color: #e53935;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+
+  mat-icon {
+    margin-right: 6px;
+    color: #e53935;
+  }
+}
+
+/* Animación de fondo */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Animación de aparición */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media screen and (max-width: 480px) {
+  .login-card {
+    width: 90%;
+    padding: 20px;
+  }
+}

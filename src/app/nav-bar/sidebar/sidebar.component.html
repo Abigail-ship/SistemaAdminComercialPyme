@@ -1,0 +1,104 @@
+<div class="layout-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="!sidenavOpen">
+    <div class="logo-container">
+      <h2 *ngIf="sidenavOpen">Raíces con Amor</h2>
+      <button mat-icon-button (click)="toggleSidenav()" class="toggle-btn">
+        <mat-icon>{{ sidenavOpen ? 'chevron_left' : 'menu' }}</mat-icon>
+      </button>
+    </div>
+
+    <nav class="menu">
+      <!-- Usuarios (solo Administrador) -->
+<div class="menu-item" (click)="toggleMenu('usuarios')" *ngIf="userRole === 'Administrador'">
+  <mat-icon>manage_accounts</mat-icon>
+  <span *ngIf="sidenavOpen">Administrar Usuarios</span>
+  <mat-icon *ngIf="sidenavOpen">{{ menuOpen==='usuarios' ? 'expand_less' : 'expand_more' }}</mat-icon>
+</div>
+<div *ngIf="menuOpen==='usuarios' && sidenavOpen && userRole==='Administrador'" class="submenu">
+  <a routerLink="/usuarios"><mat-icon>person</mat-icon><span>Usuarios</span></a>
+  <a routerLink="/roles"><mat-icon>security</mat-icon><span>Roles</span></a>
+</div>
+
+
+      <!-- Inventario -->
+      <div class="menu-item" (click)="toggleMenu('inventario')">
+        <mat-icon>inventory</mat-icon>
+        <span *ngIf="sidenavOpen">Inventario</span>
+        <mat-icon *ngIf="sidenavOpen">{{ menuOpen==='inventario' ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </div>
+      <div *ngIf="menuOpen==='inventario' && sidenavOpen" class="submenu">
+        <a routerLink="/categorias"><mat-icon>category</mat-icon><span>Categorías</span></a>
+        <a routerLink="/productos"><mat-icon>inventory_2</mat-icon><span>Productos</span></a>
+      </div>
+
+      <!-- Clientes -->
+      <div class="menu-item" (click)="toggleMenu('clientes')">
+        <mat-icon>people</mat-icon>
+        <span *ngIf="sidenavOpen">Clientes</span>
+        <mat-icon *ngIf="sidenavOpen">{{ menuOpen==='clientes' ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </div>
+      <div *ngIf="menuOpen==='clientes' && sidenavOpen" class="submenu">
+        <a routerLink="/clientes"><mat-icon>people</mat-icon><span>Administrar Clientes</span></a>
+      </div>
+
+      <!-- Proveedores -->
+      <a class="menu-item no-active" routerLink="/proveedores">
+        <mat-icon>local_shipping</mat-icon>
+        <span *ngIf="sidenavOpen">Proveedores</span>
+      </a>
+
+      <!-- Ventas -->
+      <a class="menu-item no-active" routerLink="/ventas">
+        <mat-icon>point_of_sale</mat-icon>
+        <span *ngIf="sidenavOpen">Ventas</span>
+      </a>
+
+      <!-- Compras -->
+      <div class="menu-item" (click)="toggleMenu('compras')">
+        <mat-icon>shopping_cart</mat-icon>
+        <span *ngIf="sidenavOpen">Compras</span>
+        <mat-icon *ngIf="sidenavOpen">{{ menuOpen==='compras' ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </div>
+      <div *ngIf="menuOpen==='compras' && sidenavOpen" class="submenu">
+        <a routerLink="/compras"><mat-icon>list</mat-icon><span>Listado de Compras</span></a>
+        <a routerLink="/compras/nueva"><mat-icon>add</mat-icon><span>Nueva Compra</span></a>
+      </div>
+
+      <!-- Spacer para empujar el botón de cerrar sesión abajo -->
+      <div class="menu-spacer"></div>
+
+      <!-- Cerrar sesión -->
+      <div class="logout-btn" *ngIf="sidenavOpen">
+        <button mat-raised-button color="warn" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Cerrar Sesión
+        </button>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Contenido -->
+  <div class="main-content">
+    <!-- Barra superior fija -->
+    <header class="top-navbar">
+      <button mat-icon-button (click)="goHome()">
+    <mat-icon>home</mat-icon> <!-- Ícono de Home -->
+  </button>
+      <span class="toolbar-title">Home</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="toggleTheme()">
+        <mat-icon>{{ isDarkTheme ? 'dark_mode' : 'light_mode' }}</mat-icon>
+      </button>
+      <span class="user-info">{{ userName }} ({{ userRole }})</span>
+      <!-- Se quita botón de cerrar sesión de la barra superior -->
+    </header>
+
+    <!-- Contenido dinámico -->
+    <div class="content-area">
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+</div>
