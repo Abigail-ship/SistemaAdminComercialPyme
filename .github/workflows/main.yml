@@ -1,41 +1,44 @@
-name: Deploy Angular Frontend to AWS S3
+name: Deploy Angular to S3
 
-# Se ejecuta cada vez que hay push a la rama principal
 on:
   push:
     branches:
-      - main   # Cambia a 'master' si tu rama principal se llama master
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Clonar el repositorio
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # 2️⃣ Configurar Node.js
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'   # Angular 18+ recomendado
+          node-version: '18'
 
-      # 3️⃣ Instalar dependencias
       - name: Install dependencies
         run: npm install
 
-      # 4️⃣ Build de Angular
-      - name: Build Angular project
-        run: npm run build --if-present -- --configuration=production
+      - name: Build Angular app
+        run: npm run build --prod
 
-      # 5️⃣ Deploy a S3
       - name: Deploy to S3
-        uses: aws-actions/s3-sync@v2
+        uses: jakejarvis/s3-sync-action@v0.5.1
         with:
-          bucket: dev-admin-artesanal
-          region: us-east-2
-          source-dir: dist/browser   # Carpeta generada por npm run build
+          args: --delete
+        env:
+          AWS_S3_BUCKET: dev-admin-artesanal
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
+          SOURCE_DIR: dist/browser
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-2
