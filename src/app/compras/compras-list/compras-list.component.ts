@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs'; 
 
 @Component({
   selector: 'app-compras-list',
@@ -37,7 +38,7 @@ export class ComprasListComponent implements OnInit {
   searchTerm: string = '';
   userRole: string = '';
   displayedColumns: string[] = ['compraId', 'proveedor', 'fecha', 'total', 'estado', 'acciones'];
-
+    private searchSubject = new Subject<string>(); 
 
   constructor(
     private comprasService: ComprasService,
@@ -47,6 +48,13 @@ export class ComprasListComponent implements OnInit {
   ngOnInit(): void {
     this.userRole = localStorage.getItem('role') ?? '';
     this.loadCompras();
+    this.searchSubject.pipe(
+      debounceTime(100), // espera 300 ms antes de buscar
+      distinctUntilChanged() // evita búsquedas repetidas con el mismo texto
+    ).subscribe(searchText => {
+      this.searchTerm = searchText;
+      this.loadCompras();
+    });
   }
 
   // 📌 Cargar compras
@@ -61,10 +69,9 @@ export class ComprasListComponent implements OnInit {
 }
 
   // 📌 Buscar compras
-  search(): void {
-    this.loadCompras();
+  onSearchChange(value: string): void {
+    this.searchSubject.next(value);
   }
-
   // 📌 Ver detalle de la compra
   viewCompra(compra: Compra): void {
     this.router.navigate(['/compras', compra.compraId]);

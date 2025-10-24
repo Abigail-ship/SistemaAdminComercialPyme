@@ -4,19 +4,26 @@
   <form [formGroup]="proveedorForm" (ngSubmit)="saveProveedor()">
 
     <mat-form-field appearance="fill">
-      <mat-label>Nombre</mat-label>
+      <mat-label>Nombre del Negocio</mat-label>
       <input matInput formControlName="nombre" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Contacto</mat-label>
+      <mat-label>Contacto(Nombres y Apellidos)</mat-label>
       <input matInput formControlName="contacto" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Teléfono</mat-label>
-      <input matInput formControlName="telefono" required>
-    </mat-form-field>
+  <mat-label>Teléfono</mat-label>
+  <input matInput formControlName="telefono" maxlength="10" required>
+  <mat-error *ngIf="proveedorForm.get('telefono')?.hasError('required')">
+    El teléfono es obligatorio
+  </mat-error>
+  <mat-error *ngIf="proveedorForm.get('telefono')?.hasError('pattern')">
+    El teléfono debe tener 10 dígitos
+  </mat-error>
+</mat-form-field>
+
 
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>

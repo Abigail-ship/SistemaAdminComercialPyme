@@ -98,6 +98,21 @@
   }
 }
 
+.no-results {
+  text-align: center;
+  margin-top: 1rem;
+  color: #666;
+  font-size: 1.1rem;
+
+  mat-icon {
+    font-size: 30px;
+    color: #999;
+    display: block;
+    margin: 0 auto 2.5rem;
+  }
+}
+
+
 /* 📌 Paginador */
 mat-paginator {
   margin-top: 1rem;

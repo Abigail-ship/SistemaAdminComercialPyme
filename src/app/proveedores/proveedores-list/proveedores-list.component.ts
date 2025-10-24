@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -45,10 +46,19 @@ export class ProveedoresListComponent implements OnInit {
   total = 0;
   displayedColumns: string[] = ['nombre', 'contacto', 'telefono', 'email', 'activo', 'acciones'];
 
+  private searchSubject = new Subject<string>();
+
   constructor(private proveedoresService: ProveedoresService) {}
 
   ngOnInit(): void {
     this.loadProveedores();
+     this.searchSubject.pipe(
+      debounceTime(100),            // espera 300 ms tras dejar de escribir
+      distinctUntilChanged()        // evita búsquedas repetidas
+    ).subscribe(searchText => {
+      this.searchTerm = searchText;
+      this.loadProveedores();
+    });
   }
 
   loadProveedores() {
@@ -67,9 +77,13 @@ export class ProveedoresListComponent implements OnInit {
 }
 
 
-  search() {
-    this.page = 1;
-    this.loadProveedores();
+  onSearchChange(value: string) {
+    if (value.trim() === '') {
+      // Si borra todo, recargamos todos los productos
+      this.loadProveedores();
+    } else {
+      this.searchSubject.next(value);
+    }
   }
 
   deleteProveedor(id: number) {

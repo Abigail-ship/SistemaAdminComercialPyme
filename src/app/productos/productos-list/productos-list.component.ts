@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -38,6 +39,8 @@ export class ProductosListComponent implements OnInit {
   searchTerm = '';
   displayedColumns: string[] = ['nombre', 'categoria', 'precio', 'stock', 'acciones'];
 
+  private searchSubject = new Subject<string>();
+
   constructor(
     private productosService: ProductosService,
     private categoriasService: CategoriasService,
@@ -47,6 +50,13 @@ export class ProductosListComponent implements OnInit {
   ngOnInit(): void {
     this.loadProductos();
     this.loadCategorias();
+    this.searchSubject.pipe(
+      debounceTime(100),            // espera 300 ms tras dejar de escribir
+      distinctUntilChanged()        // evita búsquedas repetidas
+    ).subscribe(searchText => {
+      this.searchTerm = searchText;
+      this.loadProductos();
+    });
   }
 
   loadProductos() {
@@ -75,10 +85,15 @@ export class ProductosListComponent implements OnInit {
     return categoria?.nombre || 'Sin categoría';
   }
 
-  search() {
-    this.loading = true;
-    this.loadProductos();
+   onSearchChange(value: string) {
+    if (value.trim() === '') {
+      // Si borra todo, recargamos todos los productos
+      this.loadProductos();
+    } else {
+      this.searchSubject.next(value);
+    }
   }
+
   // 📌 Ir a la página de Reporte de Productos
 goToReporteProductos(): void {
   this.router.navigate(['/reportes/productos']);

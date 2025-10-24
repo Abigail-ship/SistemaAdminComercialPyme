@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
@@ -39,11 +40,19 @@ export class ClientesListComponent implements OnInit {
   pageSize = 10;
   total = 0;
   displayedColumns: string[] = ['nombres', 'apellidos', 'nombreComercial', 'tipoCliente', 'acciones'];
+  private searchSubject = new Subject<string>();
 
   constructor(private clientesService: ClientesService) {}
 
   ngOnInit(): void {
     this.loadClientes();
+    this.searchSubject.pipe(
+      debounceTime(100),            // espera 300 ms tras dejar de escribir
+      distinctUntilChanged()        // evita búsquedas repetidas
+    ).subscribe(searchText => {
+      this.searchTerm = searchText;
+      this.loadClientes();
+    });
   }
 
   loadClientes() {
@@ -61,10 +70,15 @@ export class ClientesListComponent implements OnInit {
     });
   }
 
-  search() {
-    this.page = 1;
-    this.loadClientes();
+  onSearchChange(value: string) {
+    if (value.trim() === '') {
+      // Si borra todo, recargamos todos los productos
+      this.loadClientes();
+    } else {
+      this.searchSubject.next(value);
+    }
   }
+
 
   deleteCliente(id: number) {
     if (confirm('¿Seguro que deseas eliminar este cliente?')) {

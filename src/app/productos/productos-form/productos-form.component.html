@@ -56,7 +56,7 @@
 
     <input type="file" (change)="onFileSelected($event)">
     <div *ngIf="previewUrl">
-      <img [src]="previewUrl" alt="Vista previa" width="150">
+      <img *ngIf="previewUrl" [src]="previewUrl" alt="Vista previa" width="150">
     </div>
 
     <button mat-raised-button color="primary" type="submit">Guardar</button>

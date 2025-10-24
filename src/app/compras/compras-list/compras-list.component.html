@@ -11,18 +11,16 @@
 </div>
 
   <!-- 📌 Barra de búsqueda -->
- <div class="flex items-center gap-3 mb-4">
+ <!-- 📌 Barra de búsqueda -->
+<div class="flex items-center gap-3 mb-4">
   <div class="search-input-container">
     <mat-form-field appearance="fill" class="flex-1">
       <mat-label>Buscar por proveedor o fecha</mat-label>
-      <input matInput [(ngModel)]="searchTerm" />
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)"/>
     </mat-form-field>
   </div>
-  <button mat-raised-button color="primary" class="search-btn" (click)="search()">
-    <mat-icon>search</mat-icon>
-    Buscar
-  </button>
 </div>
+
 
   <!-- 📌 Botón nueva compra -->
   <div class="mb-4">

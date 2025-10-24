@@ -4,8 +4,8 @@
   <div class="search-container">
     <mat-form-field appearance="fill">
       <mat-label>Buscar</mat-label>
-      <input matInput [(ngModel)]="searchTerm" (keyup.enter)="search()" placeholder="Nombre o Contacto">
-      <button matSuffix mat-icon-button (click)="search()">
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)" placeholder="Nombre o Contacto">
+      <button matSuffix mat-icon-button (click)="onSearchChange(searchTerm)">
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
@@ -62,6 +62,10 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <div *ngIf="proveedores.length === 0" class="no-results">
+    <mat-icon>search_off</mat-icon>
+    <p>No se encontraron proveedores.</p>
+  </div>
 
     <mat-paginator [length]="total" [pageSize]="pageSize" (page)="onPageChange($event)" [pageSizeOptions]="[5,10,20]">
     </mat-paginator>

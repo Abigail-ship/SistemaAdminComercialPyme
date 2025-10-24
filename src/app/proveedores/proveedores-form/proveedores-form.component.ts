@@ -42,7 +42,7 @@ export class ProveedoresFormComponent implements OnInit {
     this.proveedorForm = this.fb.group({
       nombre: ['', Validators.required],
       contacto: [''],
-      telefono: [''],
+       telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: ['', [Validators.email]],
       direccion: [''],
       rfc: [''],

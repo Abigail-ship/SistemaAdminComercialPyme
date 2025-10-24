@@ -42,7 +42,7 @@ export class ClientesFormComponent implements OnInit {
       apellidos: ['', Validators.required],
       nombreComercial: [''],
       direccion: [''],
-      telefono: [''],
+      telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: ['', [Validators.email]],
       tipoCliente: ['Minorista']
     });
