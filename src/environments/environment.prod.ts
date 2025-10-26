@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://sistemacomercialpyme-env.us-east-2.elasticbeanstalk.com/api'
+  apiUrl: 'http://sistemacomercialartesanalpyme-env.us-east-2.elasticbeanstalk.com/api'
 };
